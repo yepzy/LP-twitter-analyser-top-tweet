@@ -1,20 +1,27 @@
 {
   "name": "twitter-analyser-top-tweet",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "project of twitter analyse and detect the top tweet",
   "main": "server.js",
-  "scripts": [],
+  "scripts": {
+    "test": "mocha"
+  },
   "repository": "",
   "author": "Mandarine",
   "dependencies": {
     "amqplib": "^0.5.1",
     "async": "~0.2.8",
+    "chai": "^3.5.0",
     "common-env": "^6.1.0",
+    "debug": "^2.6.6",
     "express": "~3.2.4",
+    "mocha": "^3.3.0",
     "servicebus": "^2.0.10",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
+    "eslint": "^3.19.0",
     "webpack-dev-server": "^1.8.0"
   }
 }

@@ -15,8 +15,9 @@ const config = env.getOrElseAll({
             $default: 't07Db3jmDF2qihhwlncMgIaj9eXMEbHzpt8kr0vdqD0zp'
         }
     },
-    //   RABBITMQ_URL:'amqp://akgzqqdz:xrqiGwdJG970r8pPsclypIM7i0Q-2J1K@lark.rmq.cloudamqp.com/akgzqqdz'
-    RABBITMQ_URL: 'amqp://sacuqjih:omOG4lRsjCl-5Rn2-slRUjuHYmSGzxRf@lark.rmq.cloudamqp.com/sacuqjih'
+    RABBITMQ_URL: 'amqp://sacuqjih:omOG4lRsjCl-5Rn2-slRUjuHYmSGzxRf@lark.rmq.cloudamqp.com/sacuqjih',
+    NB_MAX_TOP_TWEET: 10,
+    LOG_FILE: 'top_tweet.log'
 });
 
 module.exports = config;
