@@ -1,14 +1,14 @@
 {
-  "name": "chat-example",
+  "name": "twitter-analyser-top-tweet",
   "version": "0.0.0",
-  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
+  "description": "project of twitter analyse and detect the top tweet",
   "main": "server.js",
   "repository": "",
-  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
+  "author": "Mandarine",
   "dependencies": {
+    "amqplib": "^0.5.1",
     "async": "~0.2.8",
     "express": "~3.2.4",
-    "socket.io": "~0.9.14",
-    "twitter-stream-api": "^0.5.1"
+    "socket.io": "~0.9.14"
   }
 }
