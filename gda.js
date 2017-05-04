@@ -155,8 +155,8 @@ var liste_des_tweets = [];
 var calculer_nombre_de_points = function (tweet) {
     
     var nb_points;
-    var date_du_tweet = tweet.created_at;
-    
+    var date_du_tweet = new Date(tweet.created_at);
+    console.log("----------------------------------------------"+date_du_tweet);
     nb_points = tweet.favorite_count + tweet.retweet_count;
     return nb_points;
 }

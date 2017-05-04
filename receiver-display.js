@@ -2,19 +2,11 @@
 
 
 
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io');
-io.listen(server);
-app.listen(80);
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});
+var express = require('express')
+  , app = express.createServer()
+  , io = require('socket.io').listen(app);
 
-
+io.set('origins', '*:*');
 // app.listen(80);
 // io.on('connection', function (socket) {
  
@@ -25,19 +17,40 @@ const bus = require('servicebus').bus({
     url: config.RABBITMQ_URL
 });
 
-bus.subscribe('tweet', function (elem) {
-  call_ma_fonction(elem.tweet);
+
+io.on('connection', function (socket) {
+  bus.subscribe('tweet', function (elem) {
+    call_ma_fonction(elem.tweet);
+  });
 });
 
 
 
+// const redis = require("redis"),
+//     client = redis.createClient();
 
+var recuperer_liste_des_tweets_depuis_redis = function () {
+    // var array = [];
+    // client.keys("id_*", function(e, keys){
+    //     keys.forEach(function (key) {
+    //         if(e)console.log(e);
+    //         client.get(key, function (err, tweet_string) {
+    //             var tweet = JSON.parse(tweet_string);
+    //             array.push(tweet);
+    //             console.log('Taille : ' + array.length);
+    //         });
+    //     });
+    // });
+    
+    // console.log('Taille : ' + array.length);
+    // return array;
+    return liste_des_tweets;
+    
+}
 
 
 var liste_des_tweets = [];
 
-// const redis = require("redis"),
-//     client = redis.createClient();
 
 var calculer_nombre_de_points = function (tweet) {
     return 1;
@@ -85,7 +98,6 @@ var voir_informations_tweet = function(tweet_from_redis) {
     console.log({nb_retweet:tweet_from_redis.nb_retweet, id:tweet_from_redis.id_tweet,pts:tweet_from_redis.nb_points});
 }
 var enregister_tweet = function(tweet) {
-    // console.log('-> Enregistrement dans la base Redis du tweet : '+get_id_tweet(tweet)+" ...");
     //  client.set("id_"+get_id_tweet(tweet),JSON.stringify({'text_tweet':get_text_tweet(tweet),'nb_retweet':get_nb_retweet(tweet),'id_tweet':get_id_tweet(tweet),'nb_points':calculer_nombre_de_points(tweet)}));  
     if(est_un_retweet(tweet)){
         liste_des_tweets.push(get_tweet_original(tweet));
@@ -93,25 +105,6 @@ var enregister_tweet = function(tweet) {
     liste_des_tweets.push({'text_tweet':get_text_tweet(tweet),'nb_retweet':get_nb_retweet(tweet),'id_tweet':get_id_tweet(tweet),'nb_points':calculer_nombre_de_points(tweet)});
 }
 
-var recuperer_liste_des_tweets_depuis_redis = function () {
-    // var array = [];
-    // client.keys("id_*", function(e, keys){
-    //     keys.forEach(function (key) {
-    //         if(e)console.log(e);
-    //         client.get(key, function (err, tweet_string) {
-    //             var tweet = JSON.parse(tweet_string);
-    //             array.push(tweet);
-    //             console.log('Taille : ' + array.length);
-    //         });
-    //     });
-    // });
-    
-    // console.log('Taille : ' + array.length);
-    // return array;
-    return liste_des_tweets;
-
-    
-}
 
 var voir_classement_final = function(liste_des_tweets_redis,limit) {
     liste_des_tweets_redis.sort(function(a, b){
@@ -134,7 +127,6 @@ var voir_classement_final = function(liste_des_tweets_redis,limit) {
 
 var call_ma_fonction = function(tweet) {
     enregister_tweet(tweet);
-
-
-voir_classement_final(recuperer_liste_des_tweets_depuis_redis(),10);
+    socket.emit('classement', recuperer_liste_des_tweets_depuis_redis());
+    console.log('Classement');
 }

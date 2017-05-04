@@ -5,3 +5,10 @@
         Mon super DASHBOARD
     </body>
 </html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+<script>
+  var socket = io.connect('https://mandarine-leofromlarochelle.c9users.io');
+  socket.on('classement', function (data) {
+    console.log(data);
+  });
+</script>
