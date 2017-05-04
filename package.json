@@ -3,12 +3,18 @@
   "version": "0.0.0",
   "description": "project of twitter analyse and detect the top tweet",
   "main": "server.js",
+  "scripts": [],
   "repository": "",
   "author": "Mandarine",
   "dependencies": {
     "amqplib": "^0.5.1",
     "async": "~0.2.8",
+    "common-env": "^6.1.0",
     "express": "~3.2.4",
+    "servicebus": "^2.0.10",
     "socket.io": "~0.9.14"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.8.0"
   }
 }
