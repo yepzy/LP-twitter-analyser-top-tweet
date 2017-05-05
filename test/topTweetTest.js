@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const topTweet = require('../topTweet');
+const topTweet = require('../top-tweet');
 
 describe('Statistics', () => {
     describe('Top Tweet', () => {
