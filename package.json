@@ -1,20 +1,42 @@
 {
   "name": "twitter-analyser-top-tweet",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "project of twitter analyse and detect the top tweet",
-  "main": "server.js",
-  "scripts": [],
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test-unit && npm run test-coverage",
+    "test-unit": "mocha $(find src -name '*.test.js')",
+    "test-watch": "mocha -R min -w  $(find src -name '*.test.js')",
+    "test-coverage": "nyc --all --statements=100 --lines=100 --functions=100 --branches=100 --check-coverage --reporter=lcov --reporter=cobertura --report-dir=coverage -- mocha -R spec -t 100000  $(find src -name '*.test.js')",
+    "send-coverage": "cat ./coverage/lcov.info | coveralls"
+  },
+  "nyc": {
+    "exclude": [
+      "node_modules",
+      "dist",
+      "coverage",
+      "webpack.config.js",
+      "**/**.test.js",
+      "draft-try",
+      "src/logger.js"
+    ]
+  },
   "repository": "",
   "author": "Mandarine",
   "dependencies": {
     "amqplib": "^0.5.1",
     "async": "~0.2.8",
     "common-env": "^6.1.0",
-    "express": "~3.2.4",
+    "debug": "^2.6.6",
     "servicebus": "^2.0.10",
-    "socket.io": "~0.9.14"
+    "socket.io": "~0.9.14",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "mocha": "^3.3.0",
+    "nyc": "^10.3.0",
     "webpack-dev-server": "^1.8.0"
   }
 }
